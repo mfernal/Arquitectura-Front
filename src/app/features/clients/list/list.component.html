@@ -1,1 +1,45 @@
-<p>list works!</p>
+
+<table mat-table [dataSource]="tableClientsData" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id. </th>
+        <td mat-cell *matCellDef="let client"> {{client.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef> Avatar </th>
+        <td mat-cell *matCellDef="let client"> {{client.avatar}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Creado en </th>
+        <td mat-cell *matCellDef="let client"> {{client.createdAt}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let client"> {{client.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+        <td mat-cell *matCellDef="let client"> {{client.lastname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="secondLastname">
+        <th mat-header-cell *matHeaderCellDef> Apellido segundo </th>
+        <td mat-cell *matCellDef="let client"> {{client.secondLastname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Movil </th>
+        <td mat-cell *matCellDef="let client"> {{client.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> email </th>
+        <td mat-cell *matCellDef="let client"> {{client.email}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableClientsColumnsHeaders"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableClientsColumnsHeaders;"></tr>
+</table>
