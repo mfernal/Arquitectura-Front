@@ -1,34 +1,64 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ClientListConstructorService } from './list.constructor.service';
 import { ClientListAccessService } from './list.access.service';
 import { ClientModel } from '@gonzalocarmenado/common-connector-clients';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   standalone: false
 })
-export class ListComponent {
+export class ListComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) private readonly paginatorCR!: MatPaginator;
 
-  public tableClientsData!: ClientModel[];
+  public tableClientsData!: MatTableDataSource<ClientModel>;
   public tableClientsColumnsHeaders!: string[];
 
   constructor(
     private readonly constructorService: ClientListConstructorService,
     private readonly accessService: ClientListAccessService,
+    private readonly dialogService: MatDialog,
   ) {
-    this.initTableData();
   }
 
-  public async initTableData():Promise<void>{
-    this.tableClientsColumnsHeaders = this.constructorService.initTableData();
-    this.tableClientsData = await this.getClientList();
+  public ngAfterViewInit(): void {
+    this.initTableData()
   }
 
+
+  //#region Inicialización de librerias
+  private async initTableData(): Promise<void> {
+    setTimeout(async () => {
+      this.tableClientsColumnsHeaders = this.constructorService.initTableData();
+      this.tableClientsData = new MatTableDataSource<ClientModel>([]);
+      this.tableClientsData.data = await this.getClientList();
+      this.tableClientsData.paginator = this.paginatorCR;
+    });
+
+  }
+  //#endregion Inicialización de librerias
+
+  //#region Funciones de callback
+
+  public openActionButonClientTable(clientData: ClientModel): void {
+    // const dialogRef = this.dialogService.open(ActionTableModalComponent, {
+    //   width: '300px',
+    //   data: 
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log('Modal cerrado con opción:', result);
+    //   }
+    // });
+  }
+  //#endregion Funciones de callback
 
   //#region Acceso a datos
-  public async getClientList(): Promise<ClientModel[]> {
+  private async getClientList(): Promise<ClientModel[]> {
     return this.accessService.getClientList();
   }
   //#endregion Acceso a datos

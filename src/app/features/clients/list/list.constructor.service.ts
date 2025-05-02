@@ -13,6 +13,8 @@ export class ClientListConstructorService {
             'secondLastname',
             'phone',
             'email',
+            'actionButtons'
         ];
     }
+
 }
