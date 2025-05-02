@@ -55,7 +55,7 @@ export class ListComponent implements AfterViewInit {
     const dialogRef = this.dialogService.open(AddEditComponent, {
       width: '900px',
       height: '600px',
-      data: clientData ?? null
+      data: clientData?.id ?? null
     });
 
     dialogRef.afterClosed().subscribe(result => {
