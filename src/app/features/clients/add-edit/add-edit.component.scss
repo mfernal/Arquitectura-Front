@@ -1,0 +1,21 @@
+.client-form {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+    }
+}
+
+.text-header{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.email-input{
+    width: 100%;
+}

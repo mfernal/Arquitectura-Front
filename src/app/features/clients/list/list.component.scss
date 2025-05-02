@@ -1,4 +1,13 @@
 table {
-    width: 100%;
+  width: 100%;
+}
+
+.add-client-button {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  
+}

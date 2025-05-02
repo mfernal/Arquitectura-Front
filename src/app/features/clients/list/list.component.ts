@@ -5,6 +5,7 @@ import { ClientModel } from '@gonzalocarmenado/common-connector-clients';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { AddEditComponent } from '../add-edit/add-edit.component';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -44,18 +45,26 @@ export class ListComponent implements AfterViewInit {
   //#region Funciones de callback
 
   public openActionButonClientTable(clientData: ClientModel): void {
-    // const dialogRef = this.dialogService.open(ActionTableModalComponent, {
-    //   width: '300px',
-    //   data: 
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     console.log('Modal cerrado con opción:', result);
-    //   }
-    // });
+    this.openClientModal(clientData);
   }
   //#endregion Funciones de callback
+  
+  //#region Funciones comunes
+
+  public openClientModal(clientData?: ClientModel): void {
+    const dialogRef = this.dialogService.open(AddEditComponent, {
+      width: '900px',
+      height: '600px',
+      data: clientData ?? null
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Modal cerrado con opción:', result);
+      }
+    });
+  }
+  //#endregion Funciones comunes
 
   //#region Acceso a datos
   private async getClientList(): Promise<ClientModel[]> {
