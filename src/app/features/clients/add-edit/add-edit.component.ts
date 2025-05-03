@@ -51,20 +51,20 @@ export class AddEditComponent {
       if(this.clientAPIData){
         let statusCode: number = await this.editClientData(this.transformationService.generateClientDTOFromForm(this.clientForm,this.clientAPIData));
         if(statusCode === 200){
-          this.closeModal();
+          this.closeModal(statusCode);
         }
       }else{
         let statusCode: number = await this.saveClientData(this.transformationService.generateClientDTOFromForm(this.clientForm));
         if(statusCode === 201){
-          this.closeModal();
+          this.closeModal(statusCode);
         }
       }
     }
 
   }
 
-  public closeModal(): void {
-    this.dialogRef.close();
+  public closeModal(statusCode?:number): void {
+    this.dialogRef.close(statusCode);
   }
   /**
    * Para cuandos se trata de una edición de un cliente, obtiene en base al id recibido por parametros el cliente completo. Asigna valores al formualrio

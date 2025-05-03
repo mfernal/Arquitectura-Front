@@ -23,4 +23,16 @@ export class ClientListAccessService {
               });
           });
     }
+
+    public deleteClient(id:number): Promise<number> {
+      return new Promise((resolve, reject) => {
+          this.clientService.deleteClientById(environment.testAPI, id)
+            .then((deletedClient: StandarResponse<ClientModel>) => {
+              resolve(deletedClient.status);
+            })
+            .catch((message: any) => {
+              reject(message instanceof Error ? message : new Error(message));
+            });
+        });
+  }
 }

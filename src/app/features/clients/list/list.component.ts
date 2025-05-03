@@ -44,13 +44,21 @@ export class ListComponent implements AfterViewInit {
 
   //#region Funciones de callback
 
-  public openActionButonClientTable(clientData: ClientModel): void {
-    this.openClientModal(clientData);
+  public async openActionButonClientTable(clientData: ClientModel, type: number): Promise<void> {
+    if(type === 1){
+      this.openClientModal(clientData);
+    }else if( type === 2){
+      debugger
+      let deletedClient:number = await this.deleteClientList(Number(clientData.id));
+      if(deletedClient === 200){
+        this.initTableData();
+      }
+    }
+
   }
   //#endregion Funciones de callback
-  
-  //#region Funciones comunes
 
+  //#region Funciones comunes
   public openClientModal(clientData?: ClientModel): void {
     const dialogRef = this.dialogService.open(AddEditComponent, {
       width: '900px',
@@ -60,7 +68,7 @@ export class ListComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Modal cerrado con opción:', result);
+        this.initTableData();
       }
     });
   }
@@ -69,6 +77,10 @@ export class ListComponent implements AfterViewInit {
   //#region Acceso a datos
   private async getClientList(): Promise<ClientModel[]> {
     return this.accessService.getClientList();
+  }
+
+  private async deleteClientList(id:number): Promise<number> {
+    return this.accessService.deleteClient(id);
   }
   //#endregion Acceso a datos
 }
