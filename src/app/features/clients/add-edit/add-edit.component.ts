@@ -1,11 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientAddEditConstructorService } from './add-edit.constructor.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClientAddEditAccessService } from './add-edit.acess.service';
 import { ClientModel } from '@gonzalocarmenado/common-connector-clients';
 import { ClientAddEditTransformationService } from './add-edit.transformation.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
@@ -13,8 +13,9 @@ import { ClientAddEditTransformationService } from './add-edit.transformation.se
   standalone: false
 })
 export class AddEditComponent {
-  public clientForm!: FormGroup;
+  private snackBar = inject(MatSnackBar);
 
+  public clientForm!: FormGroup;
   public clientAPIData!:ClientModel;
   constructor(
     @Inject(MAT_DIALOG_DATA) public clientInput: number,
@@ -47,7 +48,8 @@ export class AddEditComponent {
    * @memberof AddEditComponent
    */
   public async saveClient(): Promise<void> {
-    if (this.clientForm.valid) {
+    const control: string | null = this.transformationService.validateClientForm(this.clientForm);
+    if (control === null) {
       if(this.clientAPIData){
         let statusCode: number = await this.editClientData(this.transformationService.generateClientDTOFromForm(this.clientForm,this.clientAPIData));
         if(statusCode === 200){
@@ -59,6 +61,8 @@ export class AddEditComponent {
           this.closeModal(statusCode);
         }
       }
+    }else{
+      this.snackBar.open(control);
     }
 
   }

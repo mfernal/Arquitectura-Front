@@ -19,4 +19,33 @@ export class ClientAddEditTransformationService {
             email: formValue.email,
         };
     }
+
+    public validateClientForm(clientForm: FormGroup): string | null {
+        const controls = clientForm.controls;
+
+        if (controls['name'].invalid) {
+            return 'El nombre es obligatorio.';
+        }
+
+        if (controls['phone'].invalid) {
+            if (controls['phone'].errors?.['required']) {
+                return 'El teléfono es obligatorio.';
+            }
+            if (controls['phone'].errors?.['pattern']) {
+                return 'El formato del teléfono no es válido.';
+            }
+        }
+
+        if (controls['email'].invalid) {
+            if (controls['email'].errors?.['required']) {
+                return 'El email es obligatorio.';
+            }
+            if (controls['email'].errors?.['email']) {
+                return 'El formato del email no es válido.';
+            }
+        }
+
+        return null
+    }
+
 }

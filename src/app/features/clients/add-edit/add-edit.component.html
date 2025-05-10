@@ -4,13 +4,13 @@
 <form class="client-form" [formGroup]="clientForm">
     <div class="row">
         <div class="col-md-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" id="input-name-client">
                 Nombre
                 <input matInput formControlName="name">
             </mat-form-field>
         </div>
         <div class="col-md-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" id="input-lastName-client">
                 Apellido
                 <input matInput formControlName="lastName">
             </mat-form-field>
@@ -18,13 +18,13 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" id="input-lastName2-client">
                 Segundo apellido
                 <input matInput formControlName="lastName2">
             </mat-form-field>
         </div>
         <div class="col-md-6">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" id="input-phone-client">
                 Móvil
                 <input matInput formControlName="phone">
             </mat-form-field>
@@ -32,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <mat-form-field appearance="outline" class="email-input">
+            <mat-form-field appearance="outline" class="email-input" id="input-email-client">
                 Email
                 <input matInput formControlName="email">
             </mat-form-field>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="row">
-        <button mat-raised-button color="primary" (click)="saveClient()">Guardar</button>
+        <button mat-raised-button color="primary" id="save-button" (click)="saveClient()">Guardar</button>
         <button mat-button type="reset" (click)="closeModal()">Cancelar</button>
     </div>
 
