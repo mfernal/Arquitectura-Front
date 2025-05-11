@@ -103,19 +103,15 @@ En este documento no vamos a entrar más en profundidad sobre este tema, ya que 
 
 Desde este primer nivel ya podemos comenzar a dar forma a nuestra arquitectura, intentando separar de manera lógica cada funcionalidad. Aquí podemos ver una representación general de cómo quedaría la base de nuestro proyecto.
 
+```text
 /src
-
 └── /app
-
-├── /core # Servicios, guardias e interceptores globales
-
-├── /shared # Componentes, directivas y pipes reutilizables
-
-├── /features # Módulos principales de funcionalidad
-
-├── app-routing.module.ts
-
-└── app.config.ts
+    ├── /core                # Servicios, guardias e interceptores globales
+    ├── /shared              # Componentes, directivas y pipes reutilizables
+    ├── /features            # Módulos principales de funcionalidad
+    ├── app-routing.module.ts
+    └── app.config.ts
+```
 
 ### /core
 
@@ -169,33 +165,22 @@ En cambio, a nivel de **nombres de componentes**, sí podemos ser más específi
 
 A continuación, se muestra un ejemplo básico de la estructura de un módulo **Clientes**, el cual a su vez puede tener hijos que siguen esta misma organización. No existe un límite estricto de niveles de anidación, aunque tener más de tres niveles suele ser algo excepcional reservado a zonas especialmente complejas.
 
+```text
 /clientes
-
-├── clientes.module.ts # Módulo principal de la funcionalidad 'Clientes'
-
-├── clientes-routing.module.ts # Configuración de rutas de 'Clientes'
-
-├── clientes.component.ts # Componente raíz de 'Clientes'
-
-├── clientes.component.html # Template principal
-
-├── clientes.component.scss # Estilos del componente
-
-├── clientes.component.spec.ts # Test unitario
-
-├── /alta-edicion b
-
-│ ├── alta-edicion.component.ts
-
-│ ├── alta-edicion.component.html
-
-│ ├── alta-edicion.component.scss
-
-│ └── alta-edicion.component.spec.ts
-
+├── clientes.module.ts               # Módulo principal de la funcionalidad 'Clientes'
+├── clientes-routing.module.ts       # Configuración de rutas de 'Clientes'
+├── clientes.component.ts            # Componente raíz de 'Clientes'
+├── clientes.component.html          # Template principal
+├── clientes.component.scss          # Estilos del componente
+├── clientes.component.spec.ts       # Test unitario
+├── /alta-edicion
+│   ├── alta-edicion.component.ts
+│   ├── alta-edicion.component.html
+│   ├── alta-edicion.component.scss
+│   └── alta-edicion.component.spec.ts
 ├── /listado
-
 └── /delete
+```
 
 ### Contenido de un componente (ficheros)
 
@@ -249,53 +234,28 @@ Estos servicios son:
 
 Esta segmentación del código marcará la diferencia cuando hablamos de organización, haciéndonos mucho más fácil añadir o modificar código en nuestro componente, ya que sabemos exactamente donde tenemos el acceso a los datos, su transformación o su inicialización. Al principio esto puede parecer engorroso, más lento o generar ficheros de forma innecesaria, pero recordar que en la época en la que estamos, aligerar una web en 200 líneas, son unos kb totalmente imperceptibles para el usuario, sin embargo, el tiempo que nos ahorra desarrollando es enorme. Así quedaría nuestro famoso componente de clientes con los añadidos de los servicios.
 
+```text
 /clientes
-
-│
-
-├── clientes.module.ts
-
-├── clientes-routing.module.ts
-
-├── clientes.component.ts
-
-├── clientes.component.html
-
-├── clientes.component.scss
-
-├── clientes.component.spec.ts
-
-│
-
-├── clientes-constructor.service.ts
-
-├── clientes-access.service.ts
-
-├── clientes-transformation.service.ts
-
-│
-
+├── clientes.module.ts                     # Módulo principal de la funcionalidad 'Clientes'
+├── clientes-routing.module.ts             # Configuración de rutas de 'Clientes'
+├── clientes.component.ts                  # Componente raíz de 'Clientes'
+├── clientes.component.html                # Template principal
+├── clientes.component.scss                # Estilos del componente
+├── clientes.component.spec.ts             # Test unitario
+├── clientes-constructor.service.ts        # Servicio para inicialización
+├── clientes-access.service.ts             # Servicio para acceso a datos
+├── clientes-transformation.service.ts     # Servicio para transformaciones
 ├── /alta-edicion
-
-│ ├── alta-edicion.component.ts
-
-│ ├── alta-edicion.component.html
-
-│ ├── alta-edicion.component.scss
-
-│ ├── alta-edicion.component.spec.ts
-
-│ ├── alta-edicion-constructor.service.ts
-
-│ ├── alta-edicion-access.service.ts
-
-│ └── alta-edicion-transformation.service.ts
-
-│
-
+│   ├── alta-edicion.component.ts
+│   ├── alta-edicion.component.html
+│   ├── alta-edicion.component.scss
+│   ├── alta-edicion.component.spec.ts
+│   ├── alta-edicion-constructor.service.ts
+│   ├── alta-edicion-access.service.ts
+│   └── alta-edicion-transformation.service.ts
 ├── /listado
-
 └── /delete
+```
 
 Esta estructura facilita el desarrollo y el mantenimiento de nuestro código enormemente, facilitando la navegación en los componentes y sus interacciones entre ellos.
 
@@ -410,51 +370,27 @@ Las funciones que programaremos aquí deben ser genéricas y sin lógica, es dec
 
 En estas librerías también tendremos una carpeta de modelos (models) en las cuales guardaremos todos los modelos tanto para enviar al servidor como para recibirlos. Esto facilitará enormemente el trabajo de tipar nuestras variables en el proyecto principal, ya que como todos estos modelos estarán exportados desde el public-api.ts, con hacerlos una vez lo tendremos disponible en todos nuestros proyectos. La imagen de un conector será algo similar a esto:
 
+```text
 connector-client
-
-│
-
 ├── src
-
-│ └── lib
-
-│ ├── models
-
-│ │ ├── client.model.ts
-
-│ │ └──potential-client.model.ts
-
-│ │
-
-│ ├── types
-
-│ │ ├── client-direction.type.ts
-
-│ │ └── client-data.type.ts
-
-│ │
-
-│ ├── clients-connector.service.ts
-
-│ └── public-api.ts
-
-│
-
-├── test.ts
-
-├── karma.conf.js
-
-├── ng-package.json
-
-├── package.json
-
-├── README.md
-
-├── tsconfig.lib.json
-
-├── tsconfig.spec.json
-
-└── tslint.json
+│   └── lib
+│       ├── models
+│       │   ├── client.model.ts                # Modelo para clientes
+│       │   └── potential-client.model.ts      # Modelo para clientes potenciales
+│       ├── types
+│       │   ├── client-direction.type.ts       # Tipo para direcciones de clientes
+│       │   └── client-data.type.ts            # Tipo para datos de clientes
+│       ├── clients-connector.service.ts       # Servicio conector para clientes
+│       └── public-api.ts                      # Exportaciones públicas
+├── test.ts                                    # Archivo de configuración de pruebas
+├── karma.conf.js                              # Configuración de Karma
+├── ng-package.json                            # Configuración del paquete Angular
+├── package.json                               # Configuración del paquete NPM
+├── README.md                                  # Documentación del proyecto
+├── tsconfig.lib.json                          # Configuración de TypeScript para la librería
+├── tsconfig.spec.json                         # Configuración de TypeScript para pruebas
+└── tslint.json                                # Configuración de TSLint
+```
 
 Como se puede ver, estas librerías son ligeras, fáciles de mantener e integrar. Suponen una gran diferencia entre trabajar en silos o tener un ecosistema de equipos que reutilizan código, comparten responsabilidades y estandarizan sus integraciones con la API.
 
