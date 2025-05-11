@@ -1,5 +1,7 @@
 # Arquitectura para Frontales con Angular 19+
 
+Este documento tiene como objetivo proporcionar una guía completa para establecer una arquitectura sólida, escalable y eficiente en proyectos desarrollados con Angular 19+. Aquí encontrarás recomendaciones, buenas prácticas y estándares que abarcan desde la organización de carpetas y componentes hasta la integración con APIs, la gestión de dependencias y la implementación de pruebas automatizadas.
+
 ## Contents
 
 - [Arquitectura para Frontales con Angular 19+](#arquitectura-para-frontales-con-angular-19)
