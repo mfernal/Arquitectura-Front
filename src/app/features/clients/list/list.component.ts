@@ -29,6 +29,8 @@ export class ListComponent implements AfterViewInit {
     this.initTableData()
   }
 
+  //test
+
 
   //#region Inicialización de librerias
   private async initTableData(): Promise<void> {

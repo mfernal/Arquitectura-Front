@@ -31,7 +31,6 @@ export class AddEditComponent {
     if(this.clientInput ){
       this.generateClientData(this.clientInput); 
     }
-
   }
 
   //#region Inicialización de librerias

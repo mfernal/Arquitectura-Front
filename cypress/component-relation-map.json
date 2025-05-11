@@ -1,0 +1,5 @@
+{
+    "src/app/features/clients/list/list.component.ts": ["cypress/e2e/clients/list/list.cy.ts"],
+    "src/app/features/clients/add-edit/add-edit.component.ts": ["cypress/e2e/clients/add-edit/add-edit.cy.ts"]
+  }
+  

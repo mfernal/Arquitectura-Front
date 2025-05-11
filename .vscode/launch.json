@@ -15,6 +15,12 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Depurar script Cypress",
+      "program": "${workspaceFolder}/run-changed-tests.js"
     }
   ]
 }

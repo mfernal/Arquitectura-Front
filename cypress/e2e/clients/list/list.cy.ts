@@ -10,8 +10,8 @@ describe('Comprueba que el listado de clientes se carga correctamente.', () => {
       cy.visit('/clients/list');
   
       cy.wait('@getClients').then((interception) => {
-        expect(interception.response.statusCode).to.eq(200);
-        expect(interception.response.body).to.be.an('array').and.not.be.empty;
+        expect(interception.response?.statusCode).to.eq(200);
+        expect(interception.response?.body).to.be.an('array').and.not.be.empty;
       });
     });
   });
